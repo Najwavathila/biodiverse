@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIODIVERSE: E-Modul Interaktif Keanekaragaman Hayati</title>
+<style>
+:root{--g:#0f4c3a;--g2:#1f7a5c;--t:#0e7490;--a:#c77d0a;--b:#2563a8;--bg:#f3f6f1;--c:#fff;--tx:#1d2a24;--mu:#5a6b62;--ln:#d5ded7;--h:56px}
+@media(prefers-color-scheme:dark){:root{--bg:#10201a;--c:#182c24;--tx:#e8f0eb;--mu:#a3b5ab;--ln:#2c4439;--g:#6fcf9f}.btn.o{color:var(--g);border-color:var(--g)}}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 Georgia,"Times New Roman",serif;background:var(--bg);color:var(--tx)}
+h1,h2,h3,.btn,nav,.tag{font-family:"Trebuchet MS",Verdana,sans-serif}
+h2{color:var(--g);font-size:1.7rem;margin:.2em 0 .5em}h3{color:var(--g);margin:1.2em 0 .3em}
+header{position:sticky;top:0;z-index:9;background:#0f4c3a;color:#fff;display:flex;align-items:center;gap:12px;height:var(--h);padding:0 16px}
+header b{flex:1;font:700 1rem "Trebuchet MS",sans-serif}
+#pb{position:sticky;top:var(--h);z-index:9;height:4px;background:var(--ln)}#pb i{display:block;height:100%;width:0;background:var(--a);transition:width .3s}
+#menu{display:none;position:fixed;top:var(--h);right:0;width:min(300px,100%);max-height:calc(100vh - var(--h));overflow:auto;background:var(--c);border:1px solid var(--ln);z-index:10;padding:8px}
+#menu.on{display:block}#menu button{display:block;width:100%;text-align:left;border:0;background:none;color:var(--tx);padding:9px 10px;font:inherit;cursor:pointer;border-radius:6px}
+#menu button:hover,#menu button.cur{background:var(--ln)}
+main{max-width:900px;margin:0 auto;padding:20px 16px 90px}
+.pg{display:none}.pg.on{display:block}
+.card{background:var(--c);border:1px solid var(--ln);border-radius:10px;padding:16px 18px;margin:14px 0;overflow-x:auto}
+.hero{background:linear-gradient(135deg,#0f4c3a,#0e7490);color:#fff;border-radius:14px;padding:34px 24px;text-align:center}
+.hero h1{margin:.2em 0;font-size:clamp(2rem,6vw,3.4rem);letter-spacing:.04em}.hero p{margin:.3em auto;max-width:560px}
+table{width:100%;border-collapse:collapse}td,th{padding:7px 8px;border-bottom:1px solid var(--ln);text-align:left;vertical-align:top}
+.btn{background:var(--g2);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-size:.95rem;cursor:pointer;margin:4px 4px 4px 0}
+.btn.o{background:none;color:var(--g2);border:2px solid var(--g2)}.btn:disabled{opacity:.4}
+button:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--a);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.fl{perspective:800px;height:230px;cursor:pointer;border:0;background:none;padding:0;text-align:left;font:inherit;color:inherit}
+.fl .in{display:block;position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+.fl.f .in{transform:rotateY(180deg)}
+.fl .in>span{position:absolute;inset:0;backface-visibility:hidden;border-radius:10px;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;overflow:auto}
+.fl .a{background:var(--g2);color:#fff;font-size:1.1rem}.fl .a em{font-size:3rem;font-style:normal}
+.fl .z{background:var(--c);border:2px solid var(--g2);transform:rotateY(180deg);font-size:.9rem}
+.gi{background:var(--c);border:1px solid var(--ln);border-radius:10px;overflow:hidden}
+.gi .im{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:.82rem;color:#4a5b52;background:#dfe9e2}
+.gi img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#dfe9e2}#gal{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}.gi small{color:var(--mu)}.gi .tx p{margin:.4em 0}.gi a{color:var(--g)}.gi div.tx{padding:10px 12px;font-size:.88rem}
+.tag{display:inline-block;font-size:.75rem;background:var(--ln);border-radius:20px;padding:1px 10px;color:var(--tx)}
+#map{width:100%;height:auto;border-radius:10px;border:1px solid var(--ln);background:#dff0f7}
+#map [data-r]{cursor:pointer;stroke:#fff;stroke-width:2}#map [data-r]:hover,#map [data-r].sel{stroke:#000;stroke-width:3}
+#map [data-l]{cursor:pointer}#map [data-r]:focus-visible,#map [data-l]:focus-visible{outline:3px solid #000}
+.k{display:inline-block;width:12px;height:12px;border-radius:3px;margin:0 4px 0 12px;vertical-align:-1px}
+.q{border-bottom:1px solid var(--ln);padding:10px 0}.op{display:block;padding:6px 10px;margin:4px 0;border:1px solid var(--ln);border-radius:8px;cursor:pointer}
+.op.ok{background:#cdeedb;border-color:#2a9d5c;color:#123}.op.no{background:#f8d4d4;border-color:#c0392b;color:#321}
+.fbk{font-size:.9rem;color:var(--mu);margin-top:4px}.res{font-weight:700;margin-top:10px;font-family:"Trebuchet MS",sans-serif}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px;border-radius:8px;margin:4px 0;border:1px solid var(--ln);flex-wrap:wrap}
+.row.ok{background:#cdeedb;color:#123}.row.no{background:#f8d4d4;color:#321}
+select,textarea{font:inherit;padding:6px;border-radius:6px;border:1px solid var(--ln);background:var(--c);color:var(--tx)}textarea{width:100%;min-height:70px}
+.vid{aspect-ratio:16/9;background:#12261f;color:#d6e6dc;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}
+.vid iframe{width:100%;height:100%;border:0;border-radius:10px}
+#nv{position:fixed;bottom:0;left:0;right:0;background:var(--c);border-top:1px solid var(--ln);display:flex;justify-content:center;gap:8px;padding:8px;z-index:8}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><b>BIODIVERSE</b><button class="btn o" style="color:#fff;border-color:#fff;margin:0" id="mb" aria-expanded="false">☰ Menu</button></header>
+<div id="pb"><i></i></div>
+<nav id="menu" aria-label="Menu navigasi"></nav>
+<main>
+
+<section class="pg" id="p0">
+<div class="hero"><p>E-Modul Interaktif</p><h1>BIODIVERSE</h1><p><b>Keanekaragaman Hayati Indonesia dan Pelestariannya</b></p><p>Jelajahi gen, jenis, dan ekosistem, lalu telusuri persebaran fauna dari Sumatra sampai Papua.</p><button class="btn" style="background:var(--a)" onclick="go(1)">Mulai belajar</button></div>
+<div class="card"><table>
+<tr><th>Judul</th><td>BIODIVERSE: E-Modul Interaktif Keanekaragaman Hayati Indonesia dan Pelestariannya</td></tr>
+<tr><th>Mata pelajaran</th><td>Biologi</td></tr><tr><th>Kelas / Semester</th><td>X SMA/MA / 1 (Ganjil)</td></tr>
+<tr><th>Penyusun</th><td>Najwa Vathila Hamzah</td></tr><tr><th>Universitas</th><td>Universitas Negeri Makassar</td></tr><tr><th>Tahun</th><td>2026</td></tr><tr><th>Model pengembangan</th><td>ADDIE</td></tr></table></div>
+</section>
+
+<section class="pg" id="p1"><h2>Petunjuk Penggunaan</h2><div class="card"><ol>
+<li>Buka <b>☰ Menu</b> untuk pindah halaman, atau pakai tombol <b>Kembali</b> dan <b>Lanjut</b> di bagian bawah.</li>
+<li>Baca tujuan pembelajaran, lalu kerjakan <b>Pre-test</b>.</li>
+<li>Pelajari materi 1 sampai 4. Klik kartu untuk membaliknya, klik wilayah pada peta, dan kerjakan setiap aktivitas.</li>
+<li>Kerjakan <b>Kuis Interaktif</b> (jawaban langsung diberi umpan balik), lalu <b>Evaluasi Akhir</b> (skor otomatis dan pembahasan).</li>
+<li>Tutup dengan membaca rangkuman dan menulis refleksi.</li></ol>
+<p>Modul bisa dipakai di laptop, tablet, maupun smartphone.</p></div></section>
+
+<section class="pg" id="p2"><h2>Tujuan Pembelajaran</h2><div class="card">
+<p>Setelah menggunakan e-modul ini, kamu diharapkan mampu:</p><ol>
+<li>Menganalisis perbedaan tingkat keanekaragaman hayati (gen, jenis, dan ekosistem) melalui pengamatan galeri visual interaktif.</li>
+<li>Mengidentifikasi keunikan flora dan fauna Indonesia berdasarkan Garis Wallace dan Weber melalui peta interaktif.</li>
+<li>Membedakan karakteristik fauna tipe Asiatis, Peralihan, dan Australis berdasarkan analisis video dan contoh spesies.</li></ol></div></section>
+
+<section class="pg" id="p3"><h2>Pre-test</h2><p>Kerjakan untuk mengetahui pengetahuan awalmu. Pembahasan ditampilkan pada Evaluasi Akhir.</p><div class="card" id="pre"></div></section>
+
+<section class="pg" id="p4"><h2>Materi 1: Tingkat Keanekaragaman Hayati</h2>
+<div class="card"><h3>Konsep dan pentingnya</h3><p><b>Keanekaragaman hayati (biodiversitas)</b> adalah keberagaman makhluk hidup di Bumi, mulai dari variasi gen sampai variasi ekosistem.</p><p>Keanekaragaman hayati penting sebagai sumber pangan, obat, dan bahan industri, serta menjaga keseimbangan lingkungan.</p></div>
+<div class="card"><h3>Tiga tingkat keanekaragaman</h3><ul>
+<li><b>Gen:</b> variasi dalam satu spesies, misalnya warna bunga mawar.</li>
+<li><b>Jenis (spesies):</b> variasi antarspesies dalam satu suku, misalnya kucing, harimau, dan singa.</li>
+<li><b>Ekosistem:</b> variasi ekosistem darat dan perairan, misalnya hutan hujan, sawah, danau, dan terumbu karang.</li></ul></div>
+<h3>Flip card: klik untuk membalik</h3>
+<div class="grid">
+<button class="fl" onclick="this.classList.toggle('f')"><span class="in"><span class="a"><em>🌹</em>Mawar merah, putih, kuning</span><span class="z"><b>Tingkat gen.</b> Warna berbeda, tetapi masih satu spesies. Perbedaannya muncul karena susunan gen yang berbeda.</span></span></button>
+<button class="fl" onclick="this.classList.toggle('f')"><span class="in"><span class="a"><em>🐱🐯</em>Kucing dan harimau</span><span class="z"><b>Tingkat jenis.</b> Spesies berbeda dalam satu suku (Felidae), dengan ciri morfologi dan perilaku yang berbeda.</span></span></button>
+<button class="fl" onclick="this.classList.toggle('f')"><span class="in"><span class="a"><em>🌳🐠</em>Hutan, sawah, danau, laut</span><span class="z"><b>Tingkat ekosistem.</b> Interaksi makhluk hidup dengan lingkungan fisiknya berbeda di tiap tempat, baik di darat maupun perairan.</span></span></button></div>
+<h3>Aktivitas 1: Eksplorasi tingkat keanekaragaman</h3><div class="card"><p>Kelompokkan contoh berikut berdasarkan tingkat keanekaragamannya.</p><div id="a1"></div></div></section>
+
+<section class="pg" id="p5"><h2>Materi 2: Keanekaragaman Hayati Indonesia dan Persebarannya</h2>
+<div class="card"><h3>Negara megabiodiversitas</h3><p>Indonesia termasuk negara <b>megabiodiversitas</b>. Letaknya di wilayah tropis dan berupa kepulauan, sehingga memiliki banyak ekosistem dan spesies endemik.</p>
+<p><b>Garis Wallace</b> membatasi fauna Asiatis di barat dan fauna Peralihan di timur. <b>Garis Weber</b> membatasi fauna Peralihan dan fauna Australis di timur.</p></div>
+<div class="card"><table><tr><th>Tipe</th><th>Wilayah</th><th>Ciri singkat</th></tr>
+<tr><td>Asiatis (Oriental)</td><td>Sumatra, Jawa, Bali, Kalimantan</td><td>Mirip fauna Asia: banyak mamalia besar.</td></tr>
+<tr><td>Peralihan (Endemik)</td><td>Sulawesi, Nusa Tenggara, Maluku</td><td>Campuran, banyak spesies endemik yang unik.</td></tr>
+<tr><td>Australis</td><td>Papua</td><td>Mirip fauna Australia: hewan berkantong dan burung berwarna cerah.</td></tr></table></div>
+<div class="card"><h3>Flora endemik Indonesia</h3><p>Indonesia memiliki flora yang khas, misalnya <i>Rafflesia arnoldii</i> dan bunga bangkai <i>Amorphophallus titanum</i> (Sumatra), anggrek hitam (Kalimantan), eboni <i>Diospyros celebica</i> (Sulawesi), serta cendana <i>Santalum album</i> (Nusa Tenggara).</p></div><h3>Peta persebaran fauna (skematis, klik wilayah atau garis)</h3>
+<svg id="map" viewBox="0 0 600 250" role="img" aria-label="Peta skematis Indonesia dengan Garis Wallace dan Weber">
+<rect width="295" height="250" fill="#b9dfc5" opacity=".5"/><rect x="295" width="155" height="250" fill="#f1d9a0" opacity=".6"/><rect x="450" width="150" height="250" fill="#b7cdea" opacity=".6"/>
+<ellipse data-r="sumatra" cx="75" cy="105" rx="62" ry="17" transform="rotate(38 75 105)" fill="#1f7a5c"/>
+<ellipse data-r="kalimantan" cx="225" cy="95" rx="52" ry="46" fill="#1f7a5c"/>
+<ellipse data-r="jawa" cx="190" cy="190" rx="56" ry="10" fill="#1f7a5c"/>
+<ellipse data-r="ntt" cx="335" cy="195" rx="48" ry="9" fill="#c77d0a"/>
+<ellipse data-r="sulawesi" cx="340" cy="105" rx="20" ry="40" fill="#c77d0a"/>
+<ellipse data-r="maluku" cx="408" cy="110" rx="28" ry="13" fill="#c77d0a"/>
+<ellipse data-r="papua" cx="525" cy="125" rx="65" ry="36" fill="#2563a8"/>
+<path d="M296 15 C296 80 288 150 288 235" stroke="#b02a2a" stroke-width="3" stroke-dasharray="8 4" fill="none"/><path data-l="wallace" d="M296 15 C296 80 288 150 288 235" stroke="transparent" stroke-width="16" fill="none"/>
+<path d="M452 15 L448 235" stroke="#5b2a8f" stroke-width="3" stroke-dasharray="8 4" fill="none"/><path data-l="weber" d="M452 15 L448 235" stroke="transparent" stroke-width="16" fill="none"/>
+<g font-family="Trebuchet MS,sans-serif" font-size="16" fill="#222" stroke="#fff" stroke-width="3" paint-order="stroke"><text x="48" y="150">Sumatra</text><text x="195" y="100">Kalimantan</text><text x="165" y="215">Jawa</text><text x="305" y="220">Nusa Tenggara</text><text x="316" y="160">Sulawesi</text><text x="385" y="138">Maluku</text><text x="495" y="130">Papua</text><text x="262" y="12" fill="#b02a2a">Wallace</text><text x="420" y="12" fill="#5b2a8f">Weber</text></g></svg>
+<p><span class="k" style="background:#1f7a5c;margin-left:0"></span>Asiatis<span class="k" style="background:#c77d0a"></span>Peralihan<span class="k" style="background:#2563a8"></span>Australis</p>
+<div id="rb"></div><div class="card" id="info"><b>Klik wilayah atau garis pada peta</b> untuk melihat informasi fauna dan floranya.</div><button class="btn o" id="spk">🔊 Dengarkan narasi</button>
+<h3>Video pembelajaran: Garis Wallace dan Weber</h3><div class="vid" id="vid1"></div><p><small id="v1l"></small></p><h3>Galeri flora dan fauna</h3><p><small>Foto dimuat langsung dari Wikipedia/Wikimedia Commons, jadi perangkat perlu terhubung internet. Setiap foto dilengkapi tautan ke halaman berkas untuk melihat pembuat dan lisensinya.</small></p><div class="grid" id="gal"></div>
+<h3>Aktivitas 2: Peta interaktif Garis Wallace dan Weber</h3><div class="card"><p>Pilih tipe fauna untuk setiap hewan. Gunakan peta di atas sebagai petunjuk.</p><div id="a2"></div></div></section>
+
+<section class="pg" id="p6"><h2>Materi 3: Peranan dan Manfaat Keanekaragaman Hayati</h2>
+<h3>Peran yang menguntungkan</h3><div class="card"><ul>
+<li><b>Fermentasi pangan:</b> <i>Lactobacillus</i> pada yoghurt dan <i>Acetobacter xylinum</i> pada nata de coco.</li>
+<li><b>Fiksasi nitrogen:</b> <i>Rhizobium</i> hidup di bintil akar kacang-kacangan dan mengikat nitrogen dari udara.</li>
+<li><b>Penghasil antibiotik:</b> sebagian bakteri, misalnya <i>Streptomyces</i>, menghasilkan antibiotik.</li>
+<li><b>Bioremediasi:</b> bakteri dimanfaatkan untuk menguraikan pencemar, misalnya tumpahan minyak.</li></ul></div>
+<h3>Peran yang merugikan</h3><div class="card"><ul>
+<li><b>Patogen manusia:</b> <i>Mycobacterium tuberculosis</i> (penyebab TBC) dan <i>Salmonella typhi</i> (penyebab tifus).</li>
+<li><b>Patogen hewan dan tumbuhan:</b> bakteri dapat menyebabkan penyakit pada ternak dan tanaman.</li>
+<li><b>Pembusukan pangan:</b> bakteri membuat makanan rusak dan tidak layak dimakan.</li></ul></div>
+<div class="card"><h3>Pengendalian bakteri</h3><p>Pangan dapat dilindungi dengan pemanasan, pendinginan, pengawetan, dan menjaga kebersihan. Penyakit bakteri diobati dengan antibiotik sesuai anjuran dokter.</p></div></section>
+
+<section class="pg" id="p7"><h2>Materi 4: Manfaat, Penanggulangan Ancaman, dan Pelestarian</h2>
+<div class="card"><h3>Manfaat keanekaragaman hayati</h3><ul>
+<li><b>Ekologi:</b> menjaga keseimbangan ekosistem, siklus air, dan kesuburan tanah.</li>
+<li><b>Ekonomi:</b> sumber pangan, kayu, dan bahan industri.</li>
+<li><b>Medis:</b> sumber bahan obat, termasuk obat tradisional.</li>
+<li><b>Sosial-budaya:</b> bagian dari adat, kuliner, dan kearifan lokal.</li>
+<li><b>Ilmu pengetahuan:</b> objek penelitian dan pendidikan.</li></ul>
+<p><b>Jasa ekosistem</b> adalah manfaat alam bagi manusia, misalnya udara bersih dan penyerbukan, yang menjaga keseimbangan biosfer.</p></div>
+<div class="card"><h3>Ancaman dan penanggulangan</h3><p>Ancaman utama: deforestasi, alih fungsi lahan, perburuan, dan pencemaran. Pelestarian dapat dilakukan <b>in situ</b> (di habitat aslinya, misalnya taman nasional dan cagar alam) dan <b>ex situ</b> (di luar habitat, misalnya kebun raya dan kebun binatang).</p></div>
+<h3>Aktivitas 3: Analisis studi kasus deforestasi</h3>
+<div class="vid" id="vid"></div><div class="card"><h3>Kuis singkat setelah mempelajari studi kasus</h3><div id="vq"></div></div>
+<div class="card"><p>Pelajari studi kasus deforestasi dan pemanfaatan obat tradisional melalui bacaan berikut, lalu tulis analisismu.</p><ul><li><a target="_blank" rel="noopener" href="https://www.mongabay.co.id/2022/08/19/studi-deforestasi-ancaman-serius-kehidupan-orangutan-kalimantan/">Studi: Deforestasi Ancaman Serius Kehidupan Orangutan Kalimantan</a> (Mongabay Indonesia)</li><li><a target="_blank" rel="noopener" href="https://www.hutanhujan.org/updates/15247/data-aktual-deforestasi-di-indonesia-tahun-2025">Data aktual deforestasi di Indonesia tahun 2025</a> (Selamatkan Hutan Hujan)</li></ul>
+<textarea id="an" placeholder="Tuliskan dampak deforestasi dan peranan keanekaragaman hayati yang kamu temukan..."></textarea>
+<button class="btn" onclick="msg('an','Analisis tercatat di halaman ini. Salin jawabanmu jika perlu, karena akan hilang saat halaman ditutup.')">Simpan analisis</button><div class="res" id="an-m"></div></div></section>
+
+<section class="pg" id="p8"><h2>Kuis Interaktif</h2><p>Pilih jawaban, umpan balik langsung muncul.</p><div class="card" id="kq"></div></section>
+
+<section class="pg" id="p9"><h2>Evaluasi Akhir</h2><p>Jawab semua soal pilihan ganda. Skor dan pembahasan muncul setelah kamu menekan Kirim Jawaban.</p><div class="card" id="ev"></div>
+<h3>Soal uraian (dinilai bersama guru)</h3><div class="card">
+<p>1. Berdasarkan variasi mawar merah, putih, dan kuning, jelaskan mengapa fenomena tersebut tergolong keanekaragaman tingkat gen!</p><textarea></textarea>
+<p>2. Jelaskan perbedaan karakteristik fauna di sebelah barat Garis Wallace (Asiatis) dan sebelah timur Garis Weber (Australis)!</p><textarea></textarea>
+<p>3. Sebutkan tiga contoh hewan endemik kawasan Peralihan beserta alasan keunikannya!</p><textarea></textarea>
+<p>4. Berdasarkan video studi kasus deforestasi hutan hujan tropis, analisis dua dampak utama kerusakan habitat terhadap keanekaragaman hayati!</p><textarea></textarea></div></section>
+
+<section class="pg" id="p10"><h2>Rangkuman</h2><div class="card"><ul>
+<li>Keanekaragaman hayati ada pada tiga tingkat: gen, jenis, dan ekosistem.</li>
+<li>Indonesia adalah negara megabiodiversitas dengan banyak spesies endemik.</li>
+<li>Garis Wallace dan Weber membagi fauna menjadi tipe Asiatis, Peralihan, dan Australis.</li>
+<li>Bakteri berperan menguntungkan (fermentasi, fiksasi nitrogen, antibiotik, bioremediasi) dan merugikan (patogen, pembusukan pangan).</li>
+<li>Keanekaragaman hayati bermanfaat secara ekologi, ekonomi, medis, sosial-budaya, dan ilmu pengetahuan, sehingga perlu dilestarikan.</li></ul></div></section>
+
+<section class="pg" id="p11"><h2>Refleksi</h2><div class="card">
+<p>Apa hal terpenting yang kamu pelajari?</p><textarea id="r1"></textarea>
+<p>Bagian mana yang masih sulit dipahami?</p><textarea id="r2"></textarea>
+<p>Apa yang bisa kamu lakukan untuk melestarikan keanekaragaman hayati di sekitarmu?</p><textarea id="r3"></textarea>
+<button class="btn" onclick="msg('r3','Refleksi tercatat di halaman ini. Salin jawabanmu jika perlu, karena akan hilang saat halaman ditutup.')">Simpan refleksi</button><div class="res" id="r3-m"></div></div></section>
+
+<section class="pg" id="p12"><h2>Daftar Pustaka</h2><div class="card"><ul>
+<li>Reece, J. B., Urry, L. A., Cain, M. L., Wasserman, S. A., Minorsky, P. V., &amp; Jackson, R. B. (2014). <i>Campbell Biology</i> (10th ed.). Pearson.</li>
+<li>Wallace, A. R. (1869). <i>The Malay Archipelago</i>. Macmillan.</li>
+<li>Video: &quot;Garis Wallace dan Weber - Persebaran Flora &amp; Fauna di Indonesia&quot;, Dunia Biologi, YouTube (https://www.youtube.com/watch?v=v9XqIMJLxV8).</li>
+<li>Mongabay Indonesia (2022). Studi: Deforestasi Ancaman Serius Kehidupan Orangutan Kalimantan. mongabay.co.id.</li>
+<li>Selamatkan Hutan Hujan. Data aktual deforestasi di Indonesia tahun 2025. hutanhujan.org.</li>
+<li>Foto galeri flora dan fauna: Wikipedia dan Wikimedia Commons (tautan ke halaman berkas tersedia di bawah tiap foto).</li>
+<li>Buku teks Biologi Kelas X yang digunakan di sekolah (tulis sesuai buku yang dipakai).</li></ul></div></section>
+</main>
+
+<div id="nv"><button class="btn o" id="bk" onclick="go(i-1)">Kembali</button><button class="btn o" onclick="go(0)">Beranda</button><button class="btn" id="nx" onclick="go(i+1)">Lanjut</button></div>
+
+<script>
+// VIDEO_URL: video Materi 2. VIDEO_URL2: video studi kasus Materi 4 (kosong = bagian video disembunyikan). Format: "https://www.youtube.com/embed/ID_VIDEO"
+var VIDEO_URL="https://www.youtube.com/embed/v9XqIMJLxV8",VIDEO_URL2="";
+var P=["Beranda","Petunjuk Penggunaan","Tujuan Pembelajaran","Pre-test","Materi 1: Tingkat Keanekaragaman","Materi 2: Persebaran di Indonesia","Materi 3: Peranan Bakteri","Materi 4: Manfaat dan Penanggulangan","Kuis Interaktif","Evaluasi Akhir","Rangkuman","Refleksi","Daftar Pustaka"],i=0,S={pre:null};
+var $=function(s){return document.querySelector(s)};
+var Q=[
+{q:"Variasi warna bunga mawar (merah, putih, kuning) pada satu spesies termasuk keanekaragaman tingkat...",o:["Gen","Jenis","Ekosistem","Populasi"],a:0,e:"Perbedaan terjadi dalam satu spesies karena susunan gen berbeda."},
+{q:"Kucing, harimau, dan singa menunjukkan keanekaragaman tingkat...",o:["Gen","Jenis","Ekosistem","Individu"],a:1,e:"Ketiganya spesies berbeda dalam satu suku (Felidae)."},
+{q:"Garis Wallace memisahkan fauna...",o:["Asiatis dan Peralihan","Peralihan dan Australis","Jawa dan Sumatra","Kalimantan dan Sumatra"],a:0,e:"Garis Wallace berada di antara kawasan Asiatis (barat) dan Peralihan (timur)."},
+{q:"Garis Weber memisahkan fauna...",o:["Asiatis dan Peralihan","Peralihan dan Australis","Asiatis dan Australis secara langsung","Jawa dan Bali"],a:1,e:"Garis Weber berada di antara kawasan Peralihan dan Australis."},
+{q:"Cenderawasih dan kanguru pohon termasuk fauna tipe...",o:["Asiatis","Peralihan","Australis","Kosmopolit"],a:2,e:"Keduanya hidup di Papua, kawasan fauna Australis."},
+{q:"Anoa dan babirusa adalah fauna endemik...",o:["Sumatra","Sulawesi (tipe Peralihan)","Papua","Jawa"],a:1,e:"Sulawesi termasuk kawasan Peralihan dan memiliki banyak spesies endemik."},
+{q:"<i>Rhizobium</i> bermanfaat karena...",o:["Membuat yoghurt","Mengikat nitrogen pada bintil akar kacang-kacangan","Menyebabkan TBC","Menghasilkan nata de coco"],a:1,e:"<i>Rhizobium</i> melakukan fiksasi nitrogen bersama akar kacang-kacangan."},
+{q:"Dampak utama deforestasi bagi keanekaragaman hayati adalah...",o:["Habitat rusak dan spesies terancam punah","Jumlah spesies bertambah","Variasi gen meningkat","Rantai makanan makin kuat"],a:0,e:"Hilangnya hutan merusak habitat sehingga populasi spesies menurun."}];
+var M={sumatra:["Sumatra","Asiatis","Harimau sumatera, gajah sumatera, orangutan sumatera","Rafflesia arnoldii, bunga bangkai"],
+kalimantan:["Kalimantan","Asiatis","Orangutan kalimantan, bekantan, enggang gading","Anggrek hitam, kantong semar"],
+jawa:["Jawa","Asiatis","Badak jawa, owa jawa, macan tutul jawa","Rafflesia patma"],
+sulawesi:["Sulawesi","Peralihan","Anoa, babirusa, maleo, tarsius","Eboni (kayu hitam)"],
+ntt:["Nusa Tenggara","Peralihan","Komodo, kakatua kecil jambul kuning","Cendana"],
+maluku:["Maluku","Peralihan","Kus-kus, kakatua putih, nuri","Cengkih dan pala (tanaman asli Maluku)"],
+papua:["Papua","Australis","Cenderawasih, kasuari, kanguru pohon, walabi","Matoa, berbagai jenis anggrek"]};
+var L={wallace:"<b>Garis Wallace</b> memisahkan fauna Asiatis (barat) dan Peralihan (timur), antara lain di antara Bali dan Lombok serta Kalimantan dan Sulawesi. Peta ini skematis, posisi garis tidak persis.",
+weber:"<b>Garis Weber</b> memisahkan fauna Peralihan dan Australis, melewati perairan antara Maluku dan Papua. Peta ini skematis, posisi garis tidak persis."};
+var G=[
+{t:"Rafflesia_arnoldii",n:"Rafflesia arnoldii",c:"Padma raksasa",w:"Sumatra",g:"Flora",d:"Bunga tunggal terbesar di dunia. Tumbuhan parasit yang tidak memiliki daun, batang, dan akar sejati."},
+{t:"Amorphophallus_titanum",n:"Amorphophallus titanum",c:"Bunga bangkai",w:"Sumatra",g:"Flora",d:"Memiliki karangan bunga tidak bercabang terbesar di dunia dengan bau yang menyengat."},
+{t:"Diospyros_celebica",n:"Diospyros celebica",c:"Eboni",w:"Sulawesi",g:"Flora",d:"Pohon penghasil kayu hitam yang bernilai tinggi dan khas Sulawesi."},
+{t:"Sumatran_tiger",n:"Panthera tigris sumatrae",c:"Harimau sumatera",w:"Sumatra",g:"Fauna Asiatis",d:"Subspesies harimau terkecil yang hidup di hutan Sumatra dan terancam punah."},
+{t:"Orangutan",n:"Pongo spp.",c:"Orangutan",w:"Sumatra dan Kalimantan",g:"Fauna Asiatis",d:"Kera besar yang sebagian besar hidupnya di pepohonan hutan hujan."},
+{t:"Anoa",n:"Bubalus spp.",c:"Anoa",w:"Sulawesi",g:"Fauna Peralihan",d:"Kerbau kecil yang endemik di Sulawesi."},
+{t:"Komodo_dragon",n:"Varanus komodoensis",c:"Komodo",w:"Nusa Tenggara",g:"Fauna Peralihan",d:"Kadal terbesar di dunia yang endemik di beberapa pulau Nusa Tenggara."},
+{t:"Greater_bird-of-paradise",n:"Paradisaea apoda",c:"Cenderawasih",w:"Papua",g:"Fauna Australis",d:"Burung berbulu hias indah yang menjadi ciri khas fauna Papua."}];
+// Foto diambil otomatis dari artikel Wikipedia pada properti t. Untuk memakai foto sendiri, tambahkan img:"namafile.jpg" pada item (file satu folder dengan index.html).
+$("#gal").innerHTML=G.map(function(g,i){return '<div class="gi"><div class="im" id="gi'+i+'">Memuat foto...</div><div class="tx"><b>'+g.c+'</b> <span class="tag">'+g.g+'</span><br><i>'+g.n+'</i><br><small>Wilayah: '+g.w+'</small><p>'+g.d+'</p><small id="cr'+i+'"></small></div></div>'}).join("");
+G.forEach(function(g,i){var box=$("#gi"+i),cr=$("#cr"+i),alt=g.c+" ("+g.n+")";
+function fail(){if(box.parentNode)box.textContent="Foto belum dapat dimuat. Periksa koneksi internet lalu muat ulang halaman."}
+if(g.img){var m=new Image();m.alt=alt;m.onload=function(){box.replaceWith(m)};m.onerror=fail;m.src=g.img;cr.textContent="Foto: koleksi sendiri.";return}
+fetch("https://en.wikipedia.org/api/rest_v1/page/summary/"+g.t).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){var s=j.thumbnail&&j.thumbnail.source;if(!s)throw 0;
+var o=(j.originalimage&&j.originalimage.source)||s,a=o.split("/");if(o.indexOf("/thumb/")>0)a.pop();var fn=a[a.length-1],com=o.indexOf("/wikipedia/commons/")>0,m=new Image();m.alt=alt;m.onload=function(){box.replaceWith(m)};m.onerror=fail;m.src=s;
+cr.innerHTML='Sumber foto: <a target="_blank" rel="noopener" href="https://'+(com?"commons.wikimedia.org":"en.wikipedia.org")+'/wiki/File:'+fn+'">halaman berkas '+(com?"Wikimedia Commons":"Wikipedia")+'</a> (pembuat dan lisensi), melalui artikel <a target="_blank" rel="noopener" href="'+j.content_urls.desktop.page+'">Wikipedia</a>.'}).catch(fail)});
+function vid(id,u,t){var b=$("#"+id);b.style.display=u?"":"none";b.innerHTML=u?'<iframe src="'+u+'" title="'+t+'" allow="accelerometer; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>':""}
+vid("vid1",VIDEO_URL,"Video Garis Wallace dan Weber");vid("vid",VIDEO_URL2,"Video studi kasus deforestasi");
+$("#v1l").innerHTML='Video: "Garis Wallace dan Weber - Persebaran Flora &amp; Fauna di Indonesia" (Dunia Biologi, YouTube). Jika video tidak tampil, <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=v9XqIMJLxV8">buka di YouTube</a>.';
+function msg(id,t){$("#"+id+"-m").textContent=t}
+document.querySelectorAll("[data-r]").forEach(function(e){e.onclick=function(){document.querySelectorAll("[data-r]").forEach(function(x){x.classList.remove("sel")});e.classList.add("sel");var m=M[e.dataset.r];$("#info").innerHTML="<b>"+m[0]+"</b> <span class='tag'>Fauna "+m[1]+"</span><p>Fauna: "+m[2]+".<br>Flora: "+m[3]+".</p>"}});
+document.querySelectorAll("[data-l]").forEach(function(e){e.onclick=function(){$("#info").innerHTML=L[e.dataset.l]}});
+function show(qe,rev){var q=Q[+qe.dataset.k],c=qe.querySelector("input:checked");if(!c)return 0;var ok=+c.value===q.a;qe.querySelectorAll("input").forEach(function(x){x.disabled=true});
+if(rev){qe.querySelectorAll(".op").forEach(function(l,n){if(n===q.a)l.classList.add("ok");else if(l.contains(c))l.classList.add("no")});qe.querySelector(".fbk").innerHTML=(ok?"✅ Benar. ":"❌ Kurang tepat. ")+q.e}return ok?1:0}
+function quiz(id,idx,mode){var b=$("#"+id),h="",AG='<br><button class="btn o" onclick="quiz(\''+id+'\','+JSON.stringify(idx)+',\''+mode+'\')">Ulangi</button>';idx.forEach(function(k,n){h+='<div class="q" data-k="'+k+'"><p><b>'+(n+1)+'.</b> '+Q[k].q+'</p>'+Q[k].o.map(function(t,j){return '<label class="op"><input type="radio" name="'+id+k+'" value="'+j+'"> '+t+'</label>'}).join("")+'<div class="fbk"></div></div>'});
+h+=(mode=="fb"?"":'<button class="btn" id="'+id+'b">Kirim Jawaban</button>')+'<div class="res" id="'+id+'r"></div>';b.innerHTML=h;var r=$("#"+id+"r");
+if(mode=="fb"){var d=0,s=0;b.querySelectorAll(".q").forEach(function(qe){qe.onchange=function(){s+=show(qe,true);d++;if(d==idx.length)r.innerHTML="Skor kuis: "+Math.round(s/idx.length*100)+"/100"+AG}})}
+else $("#"+id+"b").onclick=function(){var qs=b.querySelectorAll(".q"),s=0;for(var n=0;n<qs.length;n++)if(!qs[n].querySelector("input:checked")){r.textContent="Jawab semua soal terlebih dahulu.";return}
+qs.forEach(function(qe){s+=show(qe,mode=="post")});var sc=Math.round(s/idx.length*100);$("#"+id+"b").disabled=true;
+if(mode=="pre"){S.pre=sc;r.textContent="Skor pre-test: "+sc+"/100. Lanjutkan ke materi."}
+else{r.innerHTML="Skor akhir: "+sc+"/100 ("+s+" dari "+idx.length+" benar). "+(sc>=80?"Sangat baik!":sc>=60?"Cukup baik, ulangi bagian yang belum kuat.":"Pelajari materi sekali lagi, lalu coba lagi.")+(S.pre!==null?"<br>Skor pre-test: "+S.pre+" → skor akhir: "+sc:"")+AG}}}
+function act(id,items,opts){var b=$("#"+id);b.innerHTML=items.map(function(t,n){return '<div class="row"><span>'+t[0]+'</span><select aria-label="Jawaban '+(n+1)+'"><option value="">Pilih...</option>'+opts.map(function(o,j){return '<option value="'+j+'">'+o+'</option>'}).join("")+'</select></div>'}).join("")+'<button class="btn">Periksa jawaban</button><div class="res"></div>';
+b.querySelector("button").onclick=function(){var s=0,rows=b.querySelectorAll(".row");rows.forEach(function(rw,n){var v=rw.querySelector("select").value,ok=v!==""&&+v===items[n][1];rw.className="row "+(ok?"ok":"no");s+=ok});b.querySelector(".res").textContent="Benar "+s+" dari "+items.length+"."+(s==items.length?" Hebat!":" Perbaiki yang berwarna merah, lalu periksa lagi.")}}
+quiz("pre",[0,2,4,6],"pre");quiz("kq",[1,3,5,7],"fb");quiz("vq",[7],"fb");quiz("ev",[0,1,2,3,4,5,6,7],"post");
+act("a1",[["Variasi warna bunga mawar",0],["Kucing, harimau, dan singa",1],["Padi varietas Rojolele dan IR64",0],["Sawah, hutan bakau, danau, dan terumbu karang",2]],["Gen","Jenis","Ekosistem"]);
+act("a2",[["Harimau sumatera",0],["Anoa",1],["Kasuari",2],["Komodo",1],["Orangutan",0],["Kanguru pohon",2]],["Asiatis","Peralihan","Australis"]);
+$("#menu").innerHTML=P.map(function(t,n){return '<button data-n="'+n+'">'+t+'</button>'}).join("");
+$("#menu").onclick=function(e){if(e.target.dataset.n)go(+e.target.dataset.n)};
+$("#mb").onclick=function(){var o=$("#menu").classList.toggle("on");this.setAttribute("aria-expanded",o)};
+function go(n){if(n<0||n>=P.length)return;i=n;document.querySelectorAll(".pg").forEach(function(p,k){p.classList.toggle("on",k==n)});
+document.querySelectorAll("#menu button").forEach(function(b,k){b.classList.toggle("cur",k==n)});$("#menu").classList.remove("on");
+$("#pb i").style.width=(n/(P.length-1)*100)+"%";$("#bk").style.display=n?"":"none";$("#nx").style.display=n<P.length-1?"":"none";if(window.speechSynthesis)speechSynthesis.cancel();window.scrollTo(0,0)}
+document.querySelectorAll("[data-r],[data-l]").forEach(function(e){e.setAttribute("tabindex","0");e.setAttribute("role","button");e.setAttribute("aria-label",e.dataset.r?M[e.dataset.r][0]:"Garis "+e.dataset.l);e.onkeydown=function(v){if(v.key=="Enter"||v.key==" "){v.preventDefault();e.onclick()}}});
+$("#rb").innerHTML=Object.keys(M).map(function(k){return '<button class="btn o" data-k="'+k+'">'+M[k][0]+'</button>'}).join("")+'<button class="btn o" data-k="wallace">Garis Wallace</button><button class="btn o" data-k="weber">Garis Weber</button>';
+$("#rb").onclick=function(v){var k=v.target.dataset.k;if(k)document.querySelector("[data-r="+k+"],[data-l="+k+"]").onclick()};
+$("#spk").onclick=function(){if(!window.speechSynthesis){alert("Peramban ini belum mendukung audio narasi.");return}speechSynthesis.cancel();var u=new SpeechSynthesisUtterance($("#info").innerText);u.lang="id-ID";speechSynthesis.speak(u)};
+document.querySelectorAll("textarea").forEach(function(t){var p=t.previousElementSibling;t.setAttribute("aria-label",p?p.textContent:"Jawaban")});
+document.addEventListener("click",function(v){if(!v.target.closest("#menu,#mb"))$("#menu").classList.remove("on")});
+go(0);
+</script>
+</body>
+</html>
